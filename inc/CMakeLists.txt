@@ -1,5 +1,37 @@
 # Distributed under the original FontForge BSD 3-clause license
 
+
+set(INC_NOINST_HEADERS
+  basics.h
+  carbon.h
+  chardata.h
+  charset.h
+  dlist.h
+  ffgdk.h
+  ffglib.h
+  ../build/inc/fontforge-config.h
+  ../build/inc/fontforge-version-extras.h
+  gdraw.h
+  gfile.h
+  ggadget.h
+  gicons.h
+  gimage.h
+  gio.h
+  gkeysym.h
+  gprogress.h
+  gresedit.h
+  gresource.h
+  gutils.h
+  gwidget.h
+  gwwiconv.h
+  hotkeys.h
+  intl.h
+  prefs.h
+  unicodelibinfo.h
+  ustring.h
+  utype.h
+)
+
 add_library(fontforge_common_headers INTERFACE)
 
 include(FontForgeConfigure)
@@ -16,10 +48,10 @@ target_link_libraries(fontforge_common_headers
   INTERFACE
     GLIB::GLIB
 )
-
 if(ENABLE_CODE_COVERAGE_RESULT)
 target_link_libraries(fontforge_common_headers
   INTERFACE
     Gcov::Gcov
 )
 endif()
+install(FILES ${INC_NOINST_HEADERS} DESTINATION /usr/local/include/fontforge)
