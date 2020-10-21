@@ -54,4 +54,4 @@ target_link_libraries(fontforge_common_headers
     Gcov::Gcov
 )
 endif()
-install(FILES ${INC_NOINST_HEADERS} DESTINATION /usr/local/include/fontforge)
+install(FILES ${INC_NOINST_HEADERS} DESTINATION ${CMAKE_INSTALL_PREFIX}/include/fontforge)
