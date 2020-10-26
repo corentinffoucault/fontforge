@@ -77,6 +77,7 @@ void InitSimpleStuff(void) {
 
     initrand();
     initadobeenc();
+    FindProgDir("");
 
     setlocale(LC_ALL,"");
     localeinfo = *localeconv();
