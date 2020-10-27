@@ -1983,9 +1983,9 @@ static uint16 *FigureInitialClasses(FPST *fpst) {
     initial[fpst->nccnt] = 0xffff;
     for ( i=cnt=0; i<fpst->rule_cnt; ++i ) {
 	for ( j=0; j<cnt ; ++j )
-	    if ( initial[j] == fpst->rules[i].u.class.nclasses[0] )
+	    if (&(fpst->rules[i].u.class.nclasses[0]) != NULL && initial[j] == fpst->rules[i].u.class.nclasses[0] )
 	break;
-	if ( j==cnt )
+	if (&(fpst->rules[i].u.class.nclasses[0]) != NULL && j==cnt )
 	    initial[cnt++] = fpst->rules[i].u.class.nclasses[0];
     }
     qsort(initial,cnt,sizeof(uint16),ui16cmp);
@@ -2074,7 +2074,7 @@ static int CntRulesStartingWithClass(FPST *fpst,uint16 cval) {
     int i, cnt;
 
     for ( i=cnt=0; i<fpst->rule_cnt; ++i ) {
-	if ( fpst->rules[i].u.class.nclasses[0]==cval )
+	if (&(fpst->rules[i].u.class.nclasses[0]) != NULL && fpst->rules[i].u.class.nclasses[0]==cval )
 	    ++cnt;
     }
 return( cnt );
