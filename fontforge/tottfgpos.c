@@ -2117,7 +2117,7 @@ static void dumpg___ContextChainGlyphs(FILE *lfile,SplineFont *sf,
 	    fseek(lfile,subpos,SEEK_SET);
 
 	    for ( l=lc=0; l<fpst->rules[k].lookup_cnt; ++l )
-		if ( fpst->rules[k].lookups[l].lookup->lookup_index!=-1 )
+		if ( fpst->rules[k].lookups[l].lookup!=NULL && fpst->rules[k].lookups[l].lookup->lookup_index!=-1 )
 		    ++lc;
 	    if ( iscontext ) {
 		subglyphs = TTFGlyphsFromNames(sf,fpst->rules[k].u.glyph.names);
@@ -2155,7 +2155,7 @@ static void dumpg___ContextChainGlyphs(FILE *lfile,SplineFont *sf,
 		putshort(lfile,lc);
 	    }
 	    for ( l=0; l<fpst->rules[k].lookup_cnt; ++l )
-		if ( fpst->rules[k].lookups[l].lookup->lookup_index!=-1 ) {
+		if ( fpst->rules[k].lookups[l].lookup!=NULL && fpst->rules[k].lookups[l].lookup->lookup_index!=-1 ) {
 		    putshort(lfile,fpst->rules[k].lookups[l].seq);
 		    putshort(lfile,fpst->rules[k].lookups[l].lookup->lookup_index);
 		}
@@ -2273,7 +2273,7 @@ static void dumpg___ContextChainClass(FILE *lfile,SplineFont *sf,
 		fseek(lfile,subpos,SEEK_SET);
 
 		for ( l=lc=0; l<fpst->rules[k].lookup_cnt; ++l )
-		    if ( fpst->rules[k].lookups[l].lookup->lookup_index!=-1 )
+		    if ( fpst->rules[k].lookups[l].lookup!=NULL && fpst->rules[k].lookups[l].lookup->lookup_index!=-1 )
 			++lc;
 		if ( iscontext ) {
 		    putshort(lfile,fpst->rules[k].u.class.ncnt);
@@ -2293,7 +2293,7 @@ static void dumpg___ContextChainClass(FILE *lfile,SplineFont *sf,
 		    putshort(lfile,lc);
 		}
 		for ( l=0; l<fpst->rules[k].lookup_cnt; ++l )
-		    if ( fpst->rules[k].lookups[l].lookup->lookup_index!=-1 ) {
+		    if ( fpst->rules[k].lookups[l].lookup!=NULL && fpst->rules[k].lookups[l].lookup->lookup_index!=-1 ) {
 			putshort(lfile,fpst->rules[k].lookups[l].seq);
 			putshort(lfile,fpst->rules[k].lookups[l].lookup->lookup_index);
 		    }
