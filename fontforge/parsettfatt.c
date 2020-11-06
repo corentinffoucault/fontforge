@@ -1122,6 +1122,7 @@ return;
 	}
 	free(rules[i].subrules);
     }
+}
 
 struct subrule {
 	uint32 offset;
