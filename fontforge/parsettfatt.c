@@ -1139,9 +1139,9 @@ struct rule {
 };
 
 static void free_rules(struct rule *rules, int current_i, int current_j) {
-    for (int k=0; k<=current_i ; ++k ) {
-        int current_size = k==current_i && current_j != -1 ? current_j : rules[k].scnt;
-	    for (int w=0; w<=current_size; ++w ) {
+    for (int k=0; k<current_i ; ++k ) {
+        int current_size = k==current_i-1 && current_j != -1 ? current_j : rules[k].scnt;
+	    for (int w=0; w<current_size; ++w ) {
 	        free(rules[k].subrules[w].bglyphs);
 	        rules[k].subrules[w].bglyphs = NULL;
             free(rules[k].subrules[w].glyphs);
@@ -1205,7 +1205,7 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
 	    if ( feof(ttf)) {
             LogError( _("Unexpected end of file in contextual chaining subtable.\n") );
             info->bad_ot = true;
-            free_rules(rules, i, j);
+            free_rules(rules, i+1, j+1);
             free(glyphs);
             glyphs = NULL;
             return;
@@ -1219,7 +1219,7 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
 	    if ( feof(ttf)) {
             LogError( _("Unexpected end of file in contextual chaining subtable.\n") );
             info->bad_ot = true;
-            free_rules(rules, i, j);
+            free_rules(rules, i+1, j+1);
             free(glyphs);
             glyphs = NULL;
             return;
@@ -1234,7 +1234,7 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
 	    if ( feof(ttf)) {
             LogError( _("Unexpected end of file in contextual chaining subtable.\n") );
             info->bad_ot = true;
-            free_rules(rules, i, j);
+            free_rules(rules, i+1, j+1);
             free(glyphs);
             glyphs = NULL;
             return;
@@ -1261,7 +1261,7 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
 	    if ( feof(ttf)) {
             LogError( _("Unexpected end of file in contextual chaining subtable.\n") );
             info->bad_ot = true;
-            free_rules(rules, i, j);
+            free_rules(rules, i+1, j+1);
             free(glyphs);
             glyphs = NULL;
             return;
@@ -1310,8 +1310,8 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
 	}
     }
 
-    free_rules(rules, rcnt, -1);
     free(glyphs);
+    free_rules(rules, rcnt, -1);
     glyphs = NULL;
 }
 
