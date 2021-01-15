@@ -1188,9 +1188,22 @@ static void g___ChainingSubTable1(FILE *ttf, int stoffset,
         return;
     }
     cnt = 0;
+    int nbSubRules = 0;
     for ( i=0; i<rcnt; ++i ) {
-	fseek(ttf,rules[i].offsets,SEEK_SET);
-	rules[i].scnt = getushort(ttf);
+	    fseek(ttf,rules[i].offsets,SEEK_SET);
+	    rules[i].scnt = getushort(ttf);
+	    nbSubRules +=rules[i].scnt;
+	}
+	if (nbSubRules>1000000) {
+        LogError( _("Too heavy font.\n") );
+        info->bad_ot = true;
+        free(rules);
+        rules = NULL;
+        free(glyphs);
+        glyphs = NULL;
+        return;
+	}
+    for ( i=0; i<rcnt; ++i ) {
 	cnt += rules[i].scnt;
 	rules[i].subrules = malloc(rules[i].scnt*sizeof(struct subrule));
 	for ( j=0; j<rules[i].scnt; ++j )
